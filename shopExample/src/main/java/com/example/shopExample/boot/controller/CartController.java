@@ -1,16 +1,16 @@
 package com.example.shopExample.boot.controller;
 
-//import java.io.OutputStream;
+import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.List;
-//import java.util.Optional;
+import java.util.Optional;
 
-//import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-//import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -18,7 +18,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import com.example.shopExample.boot.model.Product;
 import com.example.shopExample.boot.model.ProductCart;
 import com.example.shopExample.boot.service.ProductService;
-import com.example.shopExample.boot.view.StatusSession;
+import com.example.shopExample.boot.utils.controller.StatusSession;
 
 @Controller
 @RequestMapping(value = "cart")
@@ -46,7 +46,8 @@ public class CartController {
 
 			cart.add(new ProductCart(service.findById(id), 1));
 			session.setAttribute("cart", cart);
-			session.setAttribute("status", StatusSession.CREATED.getOptionText());
+			session.setAttribute("status", StatusSession.TOBUY);
+			
 
 		} else {
 
@@ -61,12 +62,9 @@ public class CartController {
 			}
 
 			session.setAttribute("cart", cart);
-			session.setAttribute("status", StatusSession.UPDATED.getOptionText());
 		}
 
-		String sid = session.getId();
-		session.setAttribute("sid", sid);
-		System.out.println("Session id: " + sid);
+		
 
 		return "redirect:/cart/show";
 	}
@@ -76,8 +74,8 @@ public class CartController {
 
 		// ProductModel productModel = new ProductModel();
 		List<ProductCart> cart = (List<ProductCart>) session.getAttribute("cart");
+		
 		int index = this.exists(id, cart);
-
 		int quantity = cart.get(index).getQuantity();
 
 		if (quantity > 0) {
@@ -89,7 +87,6 @@ public class CartController {
 		}
 
 		session.setAttribute("cart", cart);
-		session.setAttribute("status", StatusSession.UPDATED.getOptionText());
 
 		return "redirect:/cart/show";
 	}
@@ -100,7 +97,7 @@ public class CartController {
 		if (session.getAttribute("cart") != null) {
 			session.invalidate();
 		}
-		session.setAttribute("status", StatusSession.FINISHED.getOptionText());
+
 		return "redirect:/cart/show";
 	}
 

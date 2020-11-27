@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<h3>Confirmed Buy</h3>
+
+<table>
+	<tr>
+		<td>Session id:</td>
+		<td th:text="${session.sid}"></td>
+	</tr>
+	<tr>
+		<td>Customer:</td>
+		<td th:text="${session.customer.firstName + ' ' +  session.customer.lastName}"></td>
+	</tr>
+	<tr>
+			<td>Status:</td>
+			<td
+				th:text="${session.status}"></td>
+		</tr>
+		
+		<tr>
+			<td>Session:</td>
+			<td> destroyed</td>
+		</tr>
+</table>
+<Br>
+	
+
+
+<Br>
+
+
+<a th:href="@{/}">Home</a>
+
+</html>

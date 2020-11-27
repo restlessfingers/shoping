@@ -1,7 +1,5 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-
-
 <h3>Pay list</h3>
 
 <table>
@@ -9,40 +7,39 @@
 		<td>Session id:</td>
 		<td th:text="${session.sid}"></td>
 	</tr>
+	<tr>
+		<td>Customer:</td>
+		<td
+	th:text="${session.customer.firstName+ ' '+session.customer.lastName }"></td>
+	</tr>
+	<tr>
+			<td>Status:</td>
+			<td
+				th:text="${session.status}"></td>
+		</tr>
 </table>
-
 <Br>
-
-
-<div th:with ="total=0">  
 	<table >
 
 		<tr th:each="itemAmount:${session.cart}"
-			th:unless="${session == null}">
+			th:unless="${session == null}" 
+			th:with ="total=0, subtotal=0"  >
 			<td th:text="${itemAmount.product.id}"></td>
 			<td th:text="${itemAmount.product.name}"></td>
 			<td th:text="${itemAmount.product.brand}"></td>
 			<td th:text="${itemAmount.product.madein}"></td>
 			<td th:text="${#numbers.formatCurrency(itemAmount.product.price)}"></td>
 			<td th:text="${itemAmount.quantity}"></td>
-			<td th:text="${#numbers.formatCurrency(itemAmount.product.price * itemAmount.quantity)}"></td>
-			<td	th:with="total=${total + itemAmount.product.price * itemAmount.quantity}" ></td>
-		</tr>
+			<td th:with="subtotal=${itemAmount.product.price * itemAmount.quantity}"
+			th:text="${#numbers.formatCurrency(subtotal)}">
+			</td>
+			
 	</table>
 
-	<Br>
-	<table>
-		<tr>
-			<td>Total:</td>
-			<td th:text="${#numbers.formatCurrency(total)}"></td>		
-		</tr>
-	</table>
 
-</div>
 <Br>
 
-<div th:if="${not #lists.isEmpty(session.cart)}">
-	<a th:href="@{/payWithCard}">Pay with Credit Card</a>
-</div>
+
+<a th:href="@{/pay/payWithCard}">Pay with Credit Card</a>
 
 </html>

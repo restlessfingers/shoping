@@ -44,7 +44,6 @@ public class CreditCardController {
 
 	//@RequestMapping("/insertCreditCard")
 	@RequestMapping(value = "/insertCreditCard", method = RequestMethod.POST)
-
 	public String insertCreditCard(CreditCard creditCard, Model model,
 			 @RequestParam("idCustomer") Long id) {
 		

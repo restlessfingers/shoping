@@ -1,26 +1,28 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 
+
 <h3>Cart list</h3>
+
 
 <table>
 	<tr>
 		<td>Session id:</td>
 		<td th:text="${session.sid}"></td>
 	</tr>
+	<tr>
+		<td>Customer:</td>
+		<td
+			th:text="${session.customer.firstName+ ' '+session.customer.lastName }"></td>
+	</tr>
+	<tr>
+		<td>Status:</td>
+		<td th:text="${session.status}"></td>
+	</tr>
 </table>
-
 <Br>
 
 <table>
-<tr>
-        <th>Id</th>
-        <th>Name</th>
-        <th>Brand</th>
-        <th>Made In</th>
-        <th>Price</th>
-        <th>Quantity</th>
-    </tr>
 	<tr th:each="itemAmount:${session.cart}" th:unless="${session == null}">
 		<td th:text="${itemAmount.product.id}"></td>
 		<td th:text="${itemAmount.product.name}"></td>
@@ -34,12 +36,14 @@
 	</tr>
 </table>
 
-<Br>
 
+<Br>
 
 <!--div th:if="${not #lists.isEmpty(itemAmount)}">  -->
      <a th:href="@{/pay/show}">Pay</a></td>
 <!--</div> -->
+
+
 
 </html>
 
