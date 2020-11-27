@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+
+<h3>Pay list</h3>
+
+<table>
+	<tr>
+		<td>Session id:</td>
+		<td th:text="${session.sid}"></td>
+	</tr>
+</table>
+
+<Br>
+
+
+<div th:with ="total=0">  
+	<table >
+
+		<tr th:each="itemAmount:${session.cart}"
+			th:unless="${session == null}">
+			<td th:text="${itemAmount.product.id}"></td>
+			<td th:text="${itemAmount.product.name}"></td>
+			<td th:text="${itemAmount.product.brand}"></td>
+			<td th:text="${itemAmount.product.madein}"></td>
+			<td th:text="${#numbers.formatCurrency(itemAmount.product.price)}"></td>
+			<td th:text="${itemAmount.quantity}"></td>
+			<td th:text="${#numbers.formatCurrency(itemAmount.product.price * itemAmount.quantity)}"></td>
+			<td	th:with="total=${total + itemAmount.product.price * itemAmount.quantity}" ></td>
+		</tr>
+	</table>
+
+	<Br>
+	<table>
+		<tr>
+			<td>Total:</td>
+			<td th:text="${#numbers.formatCurrency(total)}"></td>		
+		</tr>
+	</table>
+
+</div>
+<Br>
+
+<div th:if="${not #lists.isEmpty(session.cart)}">
+	<a th:href="@{/payWithCard}">Pay with Credit Card</a>
+</div>
+
+</html>

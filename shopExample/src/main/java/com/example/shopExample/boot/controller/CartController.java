@@ -1,16 +1,16 @@
 package com.example.shopExample.boot.controller;
 
-import java.io.OutputStream;
+//import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
+//import java.util.Optional;
 
-import javax.servlet.http.HttpServletResponse;
+//import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PathVariable;
+//import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import com.example.shopExample.boot.model.Product;
 import com.example.shopExample.boot.model.ProductCart;
 import com.example.shopExample.boot.service.ProductService;
+import com.example.shopExample.boot.view.StatusSession;
 
 @Controller
 @RequestMapping(value = "cart")
@@ -27,7 +28,7 @@ public class CartController {
 	ProductService service;
 
 	@RequestMapping(value = "show", method = RequestMethod.GET)
-	public String home() {
+	public String homeCart() {
 		return "shoping/cart";
 	}
 
@@ -35,6 +36,9 @@ public class CartController {
 	public String add(@RequestParam("itemId") Long id, HttpSession session) {
 
 		// ProductModel productModel = new ProductModel();
+		// ProductAmount productAmount = new ProductAmount();
+		
+		
 
 		if (session.getAttribute("cart") == null) {
 
@@ -42,6 +46,7 @@ public class CartController {
 
 			cart.add(new ProductCart(service.findById(id), 1));
 			session.setAttribute("cart", cart);
+			session.setAttribute("status", StatusSession.CREATED.getOptionText());
 
 		} else {
 
@@ -56,6 +61,7 @@ public class CartController {
 			}
 
 			session.setAttribute("cart", cart);
+			session.setAttribute("status", StatusSession.UPDATED.getOptionText());
 		}
 
 		String sid = session.getId();
@@ -83,6 +89,7 @@ public class CartController {
 		}
 
 		session.setAttribute("cart", cart);
+		session.setAttribute("status", StatusSession.UPDATED.getOptionText());
 
 		return "redirect:/cart/show";
 	}
@@ -93,8 +100,8 @@ public class CartController {
 		if (session.getAttribute("cart") != null) {
 			session.invalidate();
 		}
-
-		return "redirect:/cart/index";
+		session.setAttribute("status", StatusSession.FINISHED.getOptionText());
+		return "redirect:/cart/show";
 	}
 
 	@RequestMapping(value = "deleteCart", method = RequestMethod.GET)
@@ -109,7 +116,7 @@ public class CartController {
 
 		}
 
-		return "redirect:/cart/index";
+		return "redirect:/cart/show";
 	}
 
 	private int exists(Long id, List<ProductCart> cart) {

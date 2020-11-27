@@ -1,26 +1,26 @@
-package com.example.shopExample.boot.controller;
+package com.example.shopExample.boot.rest.RestController;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import com.example.shopExample.boot.model.Customer;
-import com.example.shopExample.boot.service.CustomerService;
+
+import com.example.shopExample.boot.model.CreditCard;
+import com.example.shopExample.boot.service.CreditCardService;
 
 @RestController
 @RequestMapping("/webapi")
-public class CustomerRestController {
+public class CreditCardRestController {
+
 
 	@Autowired
-	CustomerService service;
+	CreditCardService service;
 	
-	
-	@GetMapping("/customers")
-	public Iterable<Customer> findAll() {
+	@GetMapping("/creditcards")
+	public Iterable<CreditCard> findAll() {
 
 		return service.findAll();
 	}
-	
 	
 	
 	

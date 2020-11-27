@@ -1,8 +1,6 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 
-
-
 <body>
 
 	<h3 align="center">Home</h3>
@@ -10,7 +8,13 @@
 	<Br>
 	<Br>	
 		
-	<p align="center" >Session id:</p>
+<table align="center">
+	<tr>
+		<td>Session id:</td>
+		<td th:text="${session.sid}"></td>
+	</tr>
+</table>
+
 	<p align="center" th:text="${serverTime}">The time on the server is</p>
 
 

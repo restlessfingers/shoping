@@ -30,6 +30,7 @@ public class CreditCard {
 	
 	public CreditCard() {}
 	
+	public CreditCard(CreditCard creditCard, int i) {}
 	
 	public CreditCard(Long id, String typeCreditCard, String numberCreditCard, int loan) {
 		super();

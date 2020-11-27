@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+
+<h3>Pay With Credit Card form</h3>
+
+<!-- <form action="insertCreditCard"> -->
+<form th:action="@{/pay/payWithCard}" th:object="${creditCard}" method="post">
+     
+
+		<div th:object="${creditCard}">
+			<label>Select Credit Card</label>
+			<select id="selectCreditCard" name="id">
+				<option th:value="0">No Credit Card</option>
+				<option th:each="creditCard : ${creditCards}" th:value="${creditCard.id}" 
+					th:text="${creditCard.id}"></option>
+			</select>
+		</div>
+	<p>
+		<button type="submit">Add</button>
+	</p>
+	
+</form>
+</html>

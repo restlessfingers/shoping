@@ -1,23 +1,46 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 
-
 <h3>Cart list</h3>
 
+<table>
+	<tr>
+		<td>Session id:</td>
+		<td th:text="${session.sid}"></td>
+	</tr>
+</table>
 
+<Br>
 
 <table>
-	<tr th:each="item:${session.cart}" th:unless="${session == null}">
-		<td th:text="${item.product.id}"></td>
-		<td th:text="${item.product.name}"></td>
-		<td th:text="${item.product.brand}"></td>
-		<td th:text="${item.product.madein}"></td>
-		<td th:text="${#numbers.formatCurrency(item.product.price)}"></td>
-		<td th:text="${item.quantity}"></td>
+<tr>
+        <th>Id</th>
+        <th>Name</th>
+        <th>Brand</th>
+        <th>Made In</th>
+        <th>Price</th>
+        <th>Quantity</th>
+    </tr>
+	<tr th:each="itemAmount:${session.cart}" th:unless="${session == null}">
+		<td th:text="${itemAmount.product.id}"></td>
+		<td th:text="${itemAmount.product.name}"></td>
+		<td th:text="${itemAmount.product.brand}"></td>
+		<td th:text="${itemAmount.product.madein}"></td>
+		<td th:text="${#numbers.formatCurrency(itemAmount.product.price)}"></td>
+		<td th:text="${itemAmount.quantity}"></td>
 		<td><a
-			th:href="@{/cart/removeFromCart(itemId=${item.product.id})}">Remove
+			th:href="@{/cart/removeFromCart(itemId=${itemAmount.product.id})}">Remove
 				from Cart</a></td>
 	</tr>
 </table>
 
+<Br>
+
+
+<!--div th:if="${not #lists.isEmpty(itemAmount)}">  -->
+     <a th:href="@{/pay/show}">Pay</a></td>
+<!--</div> -->
+
 </html>
+
+
