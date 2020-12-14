@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <h3>Confirmed Buy</h3>
-
+<body>
 <table>
 	<tr>
 		<td>Session id:</td>
@@ -23,7 +23,7 @@
 <Br><Br><Br>
 <table>
 	<tr>
-		<td>Your buy has finished and you will receive your parcel in 2 days. Total paid: </td>
+		<td>Your buy has finished and you will receive your items in the Date you selected. Total paid: </td>
 		<td th:text="${#numbers.formatCurrency(total)}"></td>
 	</tr>
 </table>
@@ -43,7 +43,10 @@
 
 </table> -->
 <Br>
-
+<form>
+	<input type="button" value="imprimir" onClick="window.print()">
+</form>
+<Br>
 <a th:href="@{/}">Home</a>
-
+</body>
 </html>

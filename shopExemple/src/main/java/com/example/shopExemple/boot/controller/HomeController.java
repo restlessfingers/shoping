@@ -108,6 +108,11 @@ public class HomeController {
 			
 
 		}
+		else {
+
+			return "shoping/noCustomerSelected";
+			
+		}
 
 		return "shoping/home";
 	}

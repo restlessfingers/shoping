@@ -1,6 +1,10 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
+<input type =button value=Atrás onclick="history.go(-1)">
 <h3>Pay list</h3>
+
+<body>
+
 
 <table>
 	<tr>
@@ -67,4 +71,17 @@
 			</tr>
 		</table>
 	</div>
+		<form> 
+        <textarea placeholder = "Trigger an  
+         interaction by writing something here"> 
+        </textarea> 
+    </form> 
+      
+    <script type="text/javascript"> 
+        window.addEventListener('beforeunload', function (e) { 
+            e.preventDefault(); 
+            e.returnValue = ''; 
+        }); 
+    </script> 
+   </body>  
 </html>
